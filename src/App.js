@@ -14,12 +14,15 @@ function Square({value, onSquareClick}) {
 }
 
 
+
 export default function Board() {
 
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+  //const [status, setStatus] = useState(null);
 
   function handleClick(i) {
+
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
@@ -34,6 +37,14 @@ export default function Board() {
 
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
+    
+    // let status;
+    // const winner = calculateWinner(squares);
+    // if (winner) {
+    //   status = "Winner: " + winner;
+    // } else {
+    //   status = "Next player: " + (xIsNext ? "X" : "O");
+    // }
 
     //how does react know what setSquares does if it not declared?
   }
@@ -105,11 +116,11 @@ function calculateWinner(squares) {
     [1,4,7],
     [2,5,8],
     [0,4,8],
-    [2,4,6]
+    [2,4,6],
   ];
   for (let i = 0; i < winningLines.length; i++) {
     const [a, b, c] = winningLines[i];
-    if (squares[a] && squares[a] == [squares[b] && squares[a] == squares[c]]) {
+    if (squares[a] && squares[a] === squares[b] && squares[b] === squares[c]) {
       return squares[a];
     }
   }
